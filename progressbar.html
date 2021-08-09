@@ -1,0 +1,54 @@
+// Progress Bar implementation using html, css javascript
+
+<!Doctype html>
+<html>
+
+<head>
+<title>
+  Progress bar using html css javascript
+</title>
+<style>
+.progress-container{
+  width:180px;
+  background-color:gray;
+  height:20px;
+   border-radius:10px;
+   margin:aut0
+}
+.progress-bar{
+  background-color:green;
+  width:0%;
+  height:100%;
+  border-radius:10px;
+}
+</style>
+</head>
+
+</html>
+<body>
+<div class="progress-container">
+<div class="progress-bar">
+</div>
+</div>
+<button id="start">
+start
+</button>
+
+<script>
+let start = document.getElementById("start");
+var percent = 0;
+let progressBar = document.querySelector(".progress-bar")
+start.addEventListener("click",function(){
+
+let interval = setInterval(function(){
+percent = percent+5;
+
+// when percent reaches 100 canceling the interval
+if(percent>=100){
+clearInterval(interval);
+}
+progressBar.style.width =percent + "%"
+},1000)
+})
+</script>
+</body>
