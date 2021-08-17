@@ -1,0 +1,66 @@
+// create 3 progress bar one by one when one reached progress percentage to 100%
+
+<!Doctype html>
+<html>
+
+<head>
+<title>
+  Progress bar using html css javascript
+</title>
+<style>
+#progress-container{
+  width:180px;
+  height:20px;
+   border-radius:10px;
+   margin:aut0
+}
+
+</style>
+</head>
+
+</html>
+<body>
+<div id="progress-container">
+</div>
+<script>
+var count = 0;
+let progressBar;
+var percent = 0;
+function createProgress(){
+count = count+1;
+let ele = document.createElement("div");
+ele.setAttribute("id","progress-bar"+count);
+let progressContainer = document.getElementById("progress-container");
+progressContainer.appendChild(ele);
+ progressBar = document.querySelector("#progress-bar"+count);
+progressBar.style.height='100%';
+progressBar.style.borderRadius='10px';
+}
+createProgress();
+showProgress();
+
+function showProgress(){
+let interval = setInterval(function(){
+if(percent>=100 && count<=3){
+percent = 0;
+createProgress();
+}
+else if(percent>=100 && count>3) {
+percent = 0;
+clearInterval(interval);
+}else {
+percent = percent + 20;
+if(count ==1)
+progressBar.style.background = 'red'
+if(count ==2)
+progressBar.style.background = 'green'
+if(count ==3)
+progressBar.style.background = 'blue'
+progressBar.style.width =percent + "%"
+
+}
+
+},1000)
+}
+</script>
+</body>
