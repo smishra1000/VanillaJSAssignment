@@ -1,0 +1,107 @@
+// complete todo list using javascript;
+// main concept---use of innerHTML; 
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>JAVASCRIPT TODO LIST</title>
+<style>
+#totdo-input{
+  width:150px;
+}
+#update-todo-btn{
+  display:none;
+}
+.todoitem{
+  list-style-type:none;
+  padding:4px;
+  background-color:grey;
+  font-size:25px;
+  margin:2px;
+  
+}
+.editBtn{
+  background:green;
+  color:#fff;
+}
+.deleteBtn{
+  background:red;
+  color:#fff;
+}
+
+</style>
+</head>
+<body>
+<section>
+  <div>
+    <input type="text" id="todo-input">
+    <button id="add-todo-btn">
+    ADD
+    </button>
+     <button id="update-todo-btn">
+    UPDATE
+    </button>
+  </div>
+  <ul id="todolist">
+  
+  </ul>
+</section>
+<script>
+
+let todoInput = document.getElementById("todo-input")
+let addTodoBtn = document.getElementById("add-todo-btn");
+let updateTodoBtn = document.getElementById("update-todo-btn");
+let todos = [];
+let list = document.getElementById("todolist");
+let selectedIndex = -1;
+addTodoBtn.addEventListener("click",function(){
+let value = todoInput.value;
+if(value!=="") {
+if(todos.length===0)
+todos.push({id:1,text:value});
+else
+todos.push({id:todos.length+1,text:value});
+showList();
+todoInput.value = ""
+}else{
+return;
+}
+
+});
+
+function showList(){
+let ele="";
+for(let i=0;i<todos.length;i++){
+ ele = ele +`<li class="todoitem">${todos[i].text}<div style="float:right"><button onclick="edit(${i})" class="editBtn">Edit</button><button onclick="deleteItem(${i})" class="deleteBtn">Delete</button></div></li>`
+}
+list.innerHTML = ele;
+}
+
+
+function deleteItem(index){
+todos.splice(index,1);
+
+showList();
+if(todos.length===0){
+ addTodoBtn.style.display = "block";
+  updateTodoBtn.style.display = "none";
+}
+}
+updateTodoBtn.addEventListener("click",updateItem)
+function updateItem(){
+todos[selectedIndex].text = todoInput.value;
+todoInput.value = "";
+showList();
+}
+function edit(index){
+	todoInput.value = todos[index].text;
+  updateTodoBtn.style.display="block";
+  addTodoBtn.style.display = "none";
+  selectedIndex = index;
+ 
+}
+
+
+</script>
+</body>
+</html>
