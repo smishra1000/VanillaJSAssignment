@@ -39,6 +39,10 @@ let start = document.getElementById("start");
 var percent = 0;
 let progressBar = document.querySelector(".progress-bar")
 start.addEventListener("click",function(){
+if(percent==100){
+progressBar.style.width =0 + "%"
+percent=0;
+}
 
 let interval = setInterval(function(){
 percent = percent+5;
