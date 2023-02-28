@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .title{
+                border: 2px solid red;
+                margin: 5px;
+                padding: 5px;
+            }
+            .content{
+                background-color: grey;
+                padding: 5px;
+            }
+        </style>
+        <title>
+            Accordian Title
+        </title>
+    </head>
+    <body>
+        <div class="accordian">
+            <div class="title">
+                <h2 onclick="accordToggel(this)">Section 1</h2>
+                <div class="content" onclick="accordToggel()">
+                    <p>The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key technologies that make up the layers of the stack</p>
+                </div>
+            </div>
+            <div class="title">
+                <h2 onclick="accordToggel(this)">Section 2</h2>
+                <div class="content" onclick="accordToggel()">
+                    <p>The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key technologies that make up the layers of the stack</p>
+                </div>
+            </div>
+            <div class="title">
+                <h2 onclick="accordToggel(this)">Section 3</h2>
+                <div class="content" onclick="accordToggel()">
+                    <p>The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key technologies that make up the layers of the stack</p>
+                </div>
+            </div>
+            <div class="title">
+                <h2 onclick="accordToggel(this)">Section 4</h2>
+                <div class="content" onclick="accordToggel()">
+                    <p>The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key technologies that make up the layers of the stack</p>
+                </div>
+            </div>
+        </div>
+        <script>
+            let contents = document.getElementsByClassName("content");
+            for(i=0;i<contents.length;i++){
+                contents[i].style.display="none"
+            }
+            function accordToggel(current){
+                if(current.nextElementSibling.style.display=="none")
+                    current.nextElementSibling.style.display="block"
+                else{
+                    current.nextElementSibling.style.display="none"
+                }    
+            }
+        </script>
+    </body>
+</html>
