@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #imgbox {
+            width: 450px;
+            height: auto;
+
+        }
+    </style>
+    <title>
+        image slider example
+    </title>
+</head>
+
+<body>
+        <div class="img-box" id="imgbox">
+        </div>
+        <button onclick="prev()">Prev</button>
+        <button onclick="next()">Next</button>
+    <script>
+        var i = 0;
+        var images = ["https://www.irctc.co.in/nget/assets/images/Manali.jpg", "https://www.irctc.co.in/nget/assets/images/Kashmir.jpg", "https://www.irctc.co.in/nget/assets/images/exterior.jpg"]
+        var imgBox = document.getElementById("imgbox")
+        let img = document.createElement("img")
+        img.className = "imgslider"
+        img.setAttribute("src", images[i])
+        let imgslider = imgBox.appendChild(img);
+
+        function prev() {
+            let imgslider = document.querySelector(".imgslider")
+            if (i === 0) {
+                i = images.length - 1;
+            }
+            i--
+            imgslider.setAttribute("src", images[i])
+        }
+        function next() {
+            if (i === images.length - 1) {
+                i = -1
+            }
+            i++
+            imgslider.setAttribute("src", images[i])
+        }
+    </script>
+</body>
+
+</html>
