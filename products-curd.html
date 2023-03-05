@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JAVASCRIPT CURD LIST</title>
+    <style>
+        #totdo-input {
+            width: 150px;
+        }
+
+        #update-todo-btn {
+            display: none;
+        }
+
+        .todoitem {
+            list-style-type: none;
+            padding: 4px;
+            background-color: grey;
+            font-size: 25px;
+            margin: 2px;
+
+        }
+
+        .editBtn {
+            background: green;
+            color: #fff;
+        }
+
+        .deleteBtn {
+            background: red;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div>
+            <input type="text" id="productname">
+            <input type="text" id="price">
+            <button id="add-prd-btn">
+                ADD
+            </button>
+            <button id="update-prd-btn">
+                UPDATE
+            </button>
+        </div>
+        <ul id="todolist">
+
+        </ul>
+    </section>
+    <script>
+
+        let productname = document.getElementById("productname")
+        let price = document.getElementById("price")
+        let addPrdBtn = document.getElementById("add-prd-btn");
+        let updatePrdBtn = document.getElementById("update-prd-btn");
+        let products = [];
+        let list = document.getElementById("todolist");
+        let selectedIndex = -1;
+        addPrdBtn.addEventListener("click", function () {
+            let value = productname.value;
+            if (value !== "") {
+                if (products.length === 0)
+                    products.push({ id: 1, productname: productname.value, price: price.value });
+                else
+                    products.push({ id: products.length + 1, productname: productname.value, price: price.value });
+                showList();
+                productname.value = ""
+                price.value = ""
+            } else {
+                return;
+            }
+
+        });
+
+        function showList() {
+            let ele = "";
+            for (let i = 0; i < products.length; i++) {
+                ele = ele + `<li class="todoitem">${products[i].productname}     ${products[i].price}<div style="float:right"><button onclick="edit(${i})" class="editBtn">Edit</button><button onclick="deleteItem(${i})" class="deleteBtn">Delete</button></div></li>`
+            }
+            list.innerHTML = ele;
+        }
+
+
+        function deleteItem(index) {
+            products.splice(index, 1);
+
+            showList();
+            if (products.length === 0) {
+                addPrdBtn.style.display = "block";
+                updatePrdBtn.style.display = "none";
+            }
+        }
+        updatePrdBtn.addEventListener("click", updateItem)
+        function updateItem() {
+            products[selectedIndex].price = price.value;
+            products[selectedIndex].productname = productname.value;
+            price.value = "";
+            productname.value = ""
+            showList();
+        }
+        function edit(index) {
+            productname.value = products[index].productname
+            price.value = products[index].price
+            updatePrdBtn.style.display = "block";
+            addPrdBtn.style.display = "none";
+            selectedIndex = index;
+
+        }
+
+
+    </script>
+</body>
+
+</html>
