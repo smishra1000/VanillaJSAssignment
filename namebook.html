@@ -1,0 +1,38 @@
+let names = ["amit","ashok","bikki","chetan","deepak","dipti"]
+// output like name book--
+{
+  a: ["amit", "ashok"],
+  b: ["bikki"],
+  c: ["chetan"],
+  d: ["deepak", "dipti"]
+}
+
+groups = {
+
+}
+
+let firstChars = names.map(function(item){
+return item[0]
+})
+console.log(firstChars)
+let uniqueFirstChar = firstChars.filter((el,id)=>{
+    return firstChars.indexOf(el)===id
+  })
+ 
+ console.log(uniqueFirstChar)
+ uniqueFirstChar.forEach(el=>{
+    groups[el.toLowerCase()]=[]
+  })
+  console.log(groups)
+  uniqueFirstChar.forEach(char=>{
+    for(let word of names) {
+      if(word[0]==char) {
+        groups[char.toLowerCase()].push(word)
+      }
+    }
+  })
+  console.log(groups)
+  
+  
+ 
+ 
