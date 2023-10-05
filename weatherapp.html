@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+
+        }
+
+        .card {
+            width: 90%;
+            max-width: 470px;
+            background: linear-gradient(135deg, #f14cbf, #b833d3);
+            color: #d0eacf;
+            margin: 100px auto 0;
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+        }
+
+        .search {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search input {
+            border: 0;
+            outline: 0;
+            background-color: rgb(169, 212, 238);
+            color: rgb(212, 214, 81);
+            padding: 10px 25px;
+            height: 60px;
+            border-radius: 30px;
+            flex: 1;
+            margin-right: 18px;
+            font-size: 20px;
+
+        }
+
+        .search button {
+            border: 0;
+            outline: 0;
+            background-color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+        }
+
+        .search button img {
+            width: 18px;
+
+        }
+
+        .weather-icon {
+            width: 170px;
+            margin-top: 540;
+        }
+
+        .weather h1 {
+            font-size: 75px;
+            font-weight: 550;
+        }
+
+        .weather h2 {
+            font-size: 60px;
+            font-weight: 450;
+            margin-top: -10px;
+
+        }
+
+        .details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            margin-top: 45px;
+
+        }
+
+        .col {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .col img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .humidity,
+        .wind {
+            font-size: 25px;
+            margin-top: -6px;
+
+        }
+
+        .weather {
+            display: none;
+        }
+
+        .error {
+            text-align: left;
+            margin-left: 12px;
+            font-size: 15px;
+            margin-top: 13px;
+            display: none;
+        }
+    </style>
+    <title>Weather App</title>
+</head>
+
+
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="enter city name" spellcheck="false">
+            <button>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStAVqK6PrEG_bnWrMHiy4DLjCoKW_vXtfIRw&usqp=CAU"
+                    alt="search">
+            </button>
+        </div>
+        <div class="error">
+            <p>Ivalid Location</p>
+        </div>
+        <div class="weather">
+            <img src="https://cdn4.iconfinder.com/data/icons/weatherful/72/Raining_Sun-512.png" alt="rainy"
+                class="weather-icon">
+            <h1 class="temperature">25°C</h1>
+            <h2 class="city">California</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="https://cdn3.iconfinder.com/data/icons/meteocons/512/fog-512.png" alt="humidity"
+                        class="weather-icon">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-27-512.png" alt="wind"
+                        class="weather-icon">
+                    <div>
+                        <p class="wind">15Kmph</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const apiKey = "e7740192a5d2e88ca26f03fcf30fc6bd";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
+        const searchBox = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+        const weatherIcon = document.querySelector(".weather-icon")
+
+
+        async function checkWeather(city) {
+            const response = await fetch(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`);
+            if (response.status == 404) {
+                document.querySelector(".error").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+
+            } else {
+                var data = await response.json();
+
+
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temperature").innerHTML = data.main.temp + "°C";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+
+                if (data.weather[0].main == "Clouds") {
+                    weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-27-512.png"
+
+                }
+                else if (data.weather[0].main == "Clear") {
+                    weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-collection-1/512/rainnyday-512.png"
+
+                }
+                else if (data.weather[0].main == "Rain") {
+                    weatherIcon.src = "https://cdn4.iconfinder.com/data/icons/weather-129/64/weather-5-512.png"
+
+                }
+                else if (data.weather[0].main == "Drizzle") {
+                    weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-08-512.png"
+
+                }
+                else if (data.weather[0].main == "Mist") {
+                    weatherIcon.src = "https://cdn4.iconfinder.com/data/icons/weatherful/72/Drip-512.png"
+
+                }
+
+                document.querySelector(".weather").style.display = "block";
+            }
+
+            var data = await response.json();
+
+
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".temperature").innerHTML = Math.round(data.main.temperature) + "°C";
+            document.querySelector("humidity").innerHTML = data.main.humidity + "%";
+            document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+
+            if (data.weather[0].main == "Clouds") {
+                weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-27-512.png"
+
+            }
+            else if (data.weather[0].main == "Clear") {
+                weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-collection-1/512/rainnyday-512.png"
+
+            }
+            else if (data.weather[0].main == "Rain") {
+                weatherIcon.src = "https://cdn4.iconfinder.com/data/icons/weather-129/64/weather-5-512.png"
+
+            }
+            else if (data.weather[0].main == "Drizzle") {
+                weatherIcon.src = "https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-08-512.png"
+
+            }
+            else if (data.weather[0].main == "Mist") {
+                weatherIcon.src = "https://cdn4.iconfinder.com/data/icons/weatherful/72/Drip-512.png"
+
+            }
+
+            document.querySelector(".weather").style.display = "block";
+            document.querySelector(".error").style.display = "none";
+
+        }
+
+        searchBtn.addEventListener("click", () => {
+            checkWeather(searchBox.value);
+
+        })
+        //checkWeather();
+    </script>
+
+
+
+
+</body>
+
+</html>
